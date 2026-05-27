@@ -1,0 +1,278 @@
+# ARSENAL — Sovereign OSINT Platform
+# Free, open-source, no API keys required
+# Covers all 20 categories from OSINT Tools Library
+
+version: "3.8"
+
+services:
+  # ═══════════════════════════════════════════
+  # CORE OSINT PLATFORMS
+  # ═══════════════════════════════════════════
+
+  # SpiderFoot — Automated OSINT collection
+  # Categories: Social, Domain, Network, Breached, People
+  spiderfoot:
+    image: docker.io/spiderfoot
+    container_name: arsenal-spiderfoot
+    ports:
+      - "5001:5001"
+    volumes:
+      - spiderfoot-data:/var/lib/spiderfoot
+    restart: unless-stopped
+    networks:
+      - arsenal-net
+
+  # ═══════════════════════════════════════════
+  # USERNAME / SOCIAL MEDIA OSINT
+  # ═══════════════════════════════════════════
+
+  # WhatsMyName — Username enumeration (600+ sites)
+  whatsmyname:
+    image: python:3.12-slim
+    container_name: arsenal-whatsmyname
+    working_dir: /app
+    command: bash -c "pip install naminter && naminter --help"
+    volumes:
+      - ./core/whatsmyname:/app
+    networks:
+      - arsenal-net
+    profiles:
+      - tools
+
+  # Sherlock — Username enumeration (400+ sites)
+  sherlock:
+    image: python:3.12-slim
+    container_name: arsenal-sherlock
+    working_dir: /app
+    command: bash -c "pip install sherlock-project && sherlock --help"
+    volumes:
+      - ./core/sherlock:/app
+    networks:
+      - arsenal-net
+    profiles:
+      - tools
+
+  # ═══════════════════════════════════════════
+  # DOMAIN / NETWORK OSINT
+  # ═══════════════════════════════════════════
+
+  # DNSTwist — Domain squatting detection
+  dnstwist:
+    image: python:3.12-slim
+    container_name: arsenal-dnstwist
+    working_dir: /app
+    command: bash -c "pip install dnstwist && dnstwist --help"
+    volumes:
+      - ./domain-network/dnstwist:/app
+    networks:
+      - arsenal-net
+    profiles:
+      - tools
+
+  # openSquat — Domain look-alike detection
+  opensquat:
+    image: python:3.12-slim
+    container_name: arsenal-opensquat
+    working_dir: /app
+    command: bash -c "pip install opensquat && opensquat --help"
+    volumes:
+      - ./domain-network/opensquat:/app
+    networks:
+      - arsenal-net
+    profiles:
+      - tools
+
+  # ═══════════════════════════════════════════
+  # EMAIL / PHONE OSINT
+  # ═══════════════════════════════════════════
+
+  # Holehe — Email account checker
+  holehe:
+    image: python:3.12-slim
+    container_name: arsenal-holehe
+    working_dir: /app
+    command: bash -c "pip install holehe && holehe --help"
+    volumes:
+      - ./email-phone/holehe:/app
+    networks:
+      - arsenal-net
+    profiles:
+      - tools
+
+  # PhoneInfoga — Phone number OSINT
+  phoneinfoga:
+    image: python:3.12-slim
+    container_name: arsenal-phoneinfoga
+    working_dir: /app
+    command: bash -c "pip install phoneinfoga && phoneinfoga --help"
+    volumes:
+      - ./email-phone/phoneinfoga:/app
+    networks:
+      - arsenal-net
+    profiles:
+      - tools
+
+  # ═══════════════════════════════════════════
+  # ARCHIVING OSINT
+  # ═══════════════════════════════════════════
+
+  # ArchiveBox — Web archiving
+  archivebox:
+    image: archivebox/archivebox:latest
+    container_name: arsenal-archivebox
+    ports:
+      - "8002:8000"
+    volumes:
+      - archivebox-data:/data
+    environment:
+      - ALLOWED_HOSTS=*
+      - MEDIA_MAX_SIZE=750m
+    command: server 0.0.0.0:8000
+    restart: unless-stopped
+    networks:
+      - arsenal-net
+
+  # ═══════════════════════════════════════════
+  # IMAGE / VIDEO ANALYSIS
+  # ═══════════════════════════════════════════
+
+  # ExifTool — Metadata extraction
+  exiftool:
+    image: python:3.12-slim
+    container_name: arsenal-exiftool
+    working_dir: /app
+    command: bash -c "apt-get update && apt-get install -y libimage-exiftool-perl && exiftool -h"
+    volumes:
+      - ./geo-image/exiftool:/app
+    networks:
+      - arsenal-net
+    profiles:
+      - tools
+
+  # ═══════════════════════════════════════════
+  # SEARCH / RECON
+  # ═══════════════════════════════════════════
+
+  # Recon-ng — Reconnaissance framework
+  reconng:
+    image: python:3.12-slim
+    container_name: arsenal-reconng
+    working_dir: /app
+    command: bash -c "pip install recon-ng && recon-ng --help"
+    volumes:
+      - ./core/reconng:/app
+    networks:
+      - arsenal-net
+    profiles:
+      - tools
+
+  # theHarvester — Email/subdomain harvester
+  theharvester:
+    image: python:3.12-slim
+    container_name: arsenal-theharvester
+    working_dir: /app
+    command: bash -c "pip install theHarvester && theHarvester --help"
+    volumes:
+      - ./core/theharvester:/app
+    networks:
+      - arsenal-net
+    profiles:
+      - tools
+
+  # Amass — Attack surface mapping
+  amass:
+    image: ghcr.io/owasp-amass/amass:latest
+    container_name: arsenal-amass
+    working_dir: /app
+    command: help
+    volumes:
+      - ./domain-network/amass:/app
+    networks:
+      - arsenal-net
+    profiles:
+      - tools
+
+  # Subfinder — Subdomain discovery
+  subfinder:
+    image: projectdiscovery/subfinder:latest
+    container_name: arsenal-subfinder
+    working_dir: /app
+    command: -h
+    volumes:
+      - ./domain-network/subfinder:/app
+    networks:
+      - arsenal-net
+    profiles:
+      - tools
+
+  # Nuclei — Vulnerability scanner
+  nuclei:
+    image: projectdiscovery/nuclei:latest
+    container_name: arsenal-nuclei
+    working_dir: /app
+    command: -h
+    volumes:
+      - ./domain-network/nuclei:/app
+    networks:
+      - arsenal-net
+    profiles:
+      - tools
+
+  # HTTPX — HTTP probing
+  httpx:
+    image: projectdiscovery/httpx:latest
+    container_name: arsenal-httpx
+    working_dir: /app
+    command: -h
+    volumes:
+      - ./domain-network/httpx:/app
+    networks:
+      - arsenal-net
+    profiles:
+      - tools
+
+  # ═══════════════════════════════════════════
+  # OSINT FRAMEWORKS
+  # ═══════════════════════════════════════════
+
+  # Maltego — Link analysis (community edition via web)
+  # Note: Maltego CE requires manual setup, documented in skills
+
+  # Datasploit — OSINT framework
+  datasploit:
+    image: python:3.12-slim
+    container_name: arsenal-datasploit
+    working_dir: /app
+    command: bash -c "pip install datasploit && datasploit --help"
+    volumes:
+      - ./core/datasploit:/app
+    networks:
+      - arsenal-net
+    profiles:
+      - tools
+
+  # ═══════════════════════════════════════════
+  # BLOCKCHAIN OSINT
+  # ═══════════════════════════════════════════
+
+  # Blockbook — Blockchain explorer (web-based)
+  # Using Dune CLI alternative: etherscan-python
+  blockchain-osint:
+    image: python:3.12-slim
+    container_name: arsenal-blockchain
+    working_dir: /app
+    command: bash -c "pip install etherscan-python web3 && python3 -c 'print(\"Blockchain OSINT ready\")'"
+    volumes:
+      - ./domain-network/blockchain:/app
+    networks:
+      - arsenal-net
+    profiles:
+      - tools
+
+volumes:
+  spiderfoot-data:
+  archivebox-data:
+
+networks:
+  arsenal-net:
+    driver: bridge

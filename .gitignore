@@ -1,0 +1,7 @@
+venv/
+*.pyc
+__pycache__/
+install.log
+archive/archivebox-data/
+core/spiderfoot/
+.DS_Store
