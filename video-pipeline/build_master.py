@@ -6,6 +6,8 @@ SRC=os.path.dirname(os.path.abspath(__file__))+"/../assets/clips"
 WORDS=os.path.dirname(os.path.abspath(__file__))+"/../words_full"
 W,H=1080,1920
 INTRO,OUTRO=8.0,16.0
+AUDIO_LEAD=0.35  # J-cut: voice starts before its clip on emotional beats
+LEAD_BEATS={'SON','DEF'}
 
 SCRIPT=[
  ("IMG_0313",1.6,5.6,"Karmelo's Mother","ANSWER"),
@@ -75,7 +77,9 @@ for idx,(clip,ss,ee,plate,beat) in enumerate(SCRIPT):
         last_beat=beat
     clip_html.append(f'<video class="clip" data-start="{seg:.2f}" data-duration="{vdur:.2f}" data-track-index="0" '
         f'src="assets/{tag}.mp4" muted playsinline style="position:absolute;top:0;left:0;width:{W}px;height:{H}px;object-fit:cover"></video>')
-    clip_html.append(f'<audio data-start="{seg:.2f}" data-duration="{vdur:.2f}" data-track-index="1" data-volume="1.0" src="assets/{tag}.wav"></audio>')
+    lead=(AUDIO_LEAD if beat in LEAD_BEATS and idx>0 else 0.0)
+    a_start=round(seg-lead,2); a_dur=round(vdur+lead,2)
+    clip_html.append(f'<audio data-start="{a_start:.2f}" data-duration="{a_dur:.2f}" data-track-index="1" data-volume="1.0" src="assets/{tag}.wav"></audio>')
     pid=f"pl_{cap_idx}"
     clip_html.append(f'<div id="{pid}" class="clip" data-start="{seg:.2f}" data-duration="{vdur:.2f}" data-track-index="2" '
         f'style="position:absolute;left:48px;top:{H-150}px;font-family:Georgia,serif;font-size:28px;font-weight:700;color:#D4AF37;background:rgba(26,15,46,.92);padding:9px 16px;border-radius:6px;letter-spacing:.5px">{esc(plate)}</div>')
@@ -87,7 +91,7 @@ for idx,(clip,ss,ee,plate,beat) in enumerate(SCRIPT):
         for j,wd in enumerate(line):
             spans.append(f'<span id="{cid}_w{j}" style="display:inline-block;color:#fff;margin:0 6px">{esc(wd["w"])}</span>')
         clip_html.append(f'<div id="{cid}" class="clip" data-start="{l0:.2f}" data-duration="{(l1-l0):.2f}" data-track-index="{trk}" '
-            f'style="position:absolute;left:0;right:0;top:{H-560}px;text-align:center;padding:0 50px;'
+            f'style="position:absolute;left:0;right:0;top:{H-640}px;text-align:center;padding:0 50px;'
             f'font-family:\'Arial Black\',Arial,sans-serif;font-weight:900;font-size:58px;line-height:1.45">'
             f'<span style="background:rgba(8,8,13,.66);padding:10px 22px;border-radius:16px;'
             f'box-decoration-break:clone;-webkit-box-decoration-break:clone;text-shadow:0 3px 12px rgba(0,0,0,.95)">{"".join(spans)}</span></div>')
