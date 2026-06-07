@@ -24,13 +24,11 @@ if [ "$SUB" = "status" ]; then
   [ -f "$LOG" ] || { echo "NO_LOG"; exit 0; }
   EXIT_LINE=$(grep -o "__EXIT_[0-9]*" "$LOG" | tail -1)
   COMPLETE=$(grep -c "Render complete" "$LOG")
-  # terminal: explicit exit marker present
   if [ -n "$EXIT_LINE" ]; then
     CODE=$(echo "$EXIT_LINE" | grep -o '[0-9]*' | tail -1)
     if [ "$CODE" = "0" ]; then echo "DONE (exit 0)"; else echo "DEAD (exit $CODE)"; fi
     exit 0
   fi
-  # alive? check the tracked PID
   PID=$(cat "$PIDF" 2>/dev/null)
   ALIVE=no; [ -n "$PID" ] && kill -0 "$PID" 2>/dev/null && ALIVE=yes
   NOW=$(date +%s); LOGMTIME=$(stat -c %Y "$LOG" 2>/dev/null || echo "$NOW"); LOGAGE=$((NOW - LOGMTIME))
