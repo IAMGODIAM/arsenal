@@ -25,7 +25,7 @@ SCRIPT=[
  ("IMG_0316",0.0,9.6,"Supporter · Collin County","INS"),
 ]
 HOT=set("karmelo son nephew murder self-defense defense strong god love loved protected brother free justice stay covered head care hear black support truth baby child innocent broken system red ours equal forever odds hands 100%".split())
-BEAT_HDR={"ANSWER":"WHY DO YOU SUPPORT KARMELO?","SON":'"HE\'S MY SON"',"DEF":"SELF-DEFENSE IS NOT MURDER","STK":"THE ODDS WERE SET BEFORE HE WALKED IN","INS":"WHAT THEY SAW"}
+BEAT_HDR={"ANSWER":"WHY DO YOU SUPPORT KARMELO?","SON":'"HE\'S MY SON"',"DEF":"THIS WAS SELF-DEFENSE","STK":"THE ODDS WERE SET BEFORE HE WALKED IN","INS":"WHAT THEY SAW"}
 
 def norm(w): return re.sub(r'\b(carmel+a|carmell+a|carmel+o|camel+o|camil+l?a|carmil+l?a|graham\s*lowe)\b','Karmelo',w,flags=re.I)
 def clean(w): return w.strip().strip('.,?!').lower()
@@ -106,7 +106,7 @@ tl_js.insert(2,f'tl.fromTo("#hksub",{{opacity:0}},{{opacity:1,duration:.5}},2.4)
 tl_js.insert(3,f'tl.to("#hookcard",{{opacity:0,duration:.6,ease:"power1.in"}},{INTRO-.6:.2f});')
 
 o=t
-outro=f'''<div id="outrocard" class="clip" data-start="{o:.2f}" data-duration="{OUTRO:.2f}" data-track-index="7" style="position:absolute;inset:0;background:radial-gradient(circle at 50% 42%,#2A1846 0%,#08080d 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 60px"><div id="oa" style="font-family:Arial;font-weight:600;font-size:24px;color:#9a8bb5;line-height:1.5;margin-bottom:44px;max-width:820px">Accounts from supporters present at the Collin County courthouse, June 6 2026. Presumption of innocence applies. The evidence will be decided in court.</div><div id="o1" style="font-family:'Arial Black',Arial;font-weight:900;font-size:62px;color:#E8C84A;line-height:1.1;margin-bottom:24px">SELF-DEFENSE<br>IS NOT MURDER</div><div id="o2" style="font-family:'Arial Black',Arial;font-weight:900;font-size:50px;color:#fff;margin-bottom:30px">FREE KARMELO ANTHONY</div><div id="o3" style="font-family:Arial;font-weight:700;font-size:44px;color:#D4AF37;letter-spacing:1px">freekarmelo.net</div></div>'''
+outro=f'''<div id="outrocard" class="clip" data-start="{o:.2f}" data-duration="{OUTRO:.2f}" data-track-index="7" style="position:absolute;inset:0;background:radial-gradient(circle at 50% 42%,#2A1846 0%,#08080d 80%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 60px"><div id="oa" style="font-family:Arial;font-weight:600;font-size:24px;color:#9a8bb5;line-height:1.5;margin-bottom:44px;max-width:820px">Accounts from supporters present at the Collin County courthouse, June 6 2026. Presumption of innocence applies. The evidence will be decided in court.</div><div id="o1" style="font-family:'Arial Black',Arial;font-weight:900;font-size:62px;color:#E8C84A;line-height:1.1;margin-bottom:24px">THIS WAS<br>SELF-DEFENSE</div><div id="o2" style="font-family:'Arial Black',Arial;font-weight:900;font-size:50px;color:#fff;margin-bottom:30px">FREE KARMELO ANTHONY</div><div id="o3" style="font-family:Arial;font-weight:700;font-size:44px;color:#D4AF37;letter-spacing:1px">freekarmelo.net</div></div>'''
 tl_js.append(f'tl.fromTo("#oa",{{opacity:0}},{{opacity:1,duration:.7}},{o+.3:.2f});')
 tl_js.append(f'tl.fromTo("#o1",{{opacity:0,y:26}},{{opacity:1,y:0,duration:.6,ease:"power3.out"}},{o+2.2:.2f});')
 tl_js.append(f'tl.fromTo("#o2",{{opacity:0,y:20}},{{opacity:1,y:0,duration:.5,ease:"power2.out"}},{o+3.0:.2f});')
