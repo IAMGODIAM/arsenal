@@ -82,7 +82,7 @@ for idx,(clip,ss,ee,plate,beat) in enumerate(SCRIPT):
     clip_html.append(f'<audio data-start="{a_start:.2f}" data-duration="{a_dur:.2f}" data-track-index="1" data-volume="1.0" src="assets/{tag}.wav"></audio>')
     pid=f"pl_{cap_idx}"
     clip_html.append(f'<div id="{pid}" class="clip" data-start="{seg:.2f}" data-duration="{vdur:.2f}" data-track-index="2" '
-        f'style="position:absolute;left:48px;top:{H-150}px;font-family:Georgia,serif;font-size:28px;font-weight:700;color:#D4AF37;background:rgba(26,15,46,.92);padding:9px 16px;border-radius:6px;letter-spacing:.5px">{esc(plate)}</div>')
+        f'style="position:absolute;left:48px;top:{H-235}px;font-family:Georgia,serif;font-size:28px;font-weight:700;color:#D4AF37;background:rgba(26,15,46,.92);padding:9px 16px;border-radius:6px;letter-spacing:.5px">{esc(plate)}</div>')
     tl_js.append(f'tl.fromTo("#{pid}",{{opacity:0,x:-30}},{{opacity:1,x:0,duration:.5,ease:"power2.out"}},{seg+.15:.2f});')
     for line in group_lines(load_words(clip,ss,ee)):
         l0=line[0]["s"]+seg; l1=min(line[-1]["e"]+seg+0.10, seg+vdur-0.02)
