@@ -7,27 +7,27 @@ WORDS=os.path.dirname(os.path.abspath(__file__))+"/../words_full"
 W,H=1080,1920
 INTRO,OUTRO=8.0,16.0
 AUDIO_LEAD=0.35  # J-cut: voice starts before its clip on emotional beats
-LEAD_BEATS={'SON','DEF'}
+LEAD_BEATS={'SON','DEF','WIT'}
 
 SCRIPT=[
- ("IMG_0313",1.6,5.6,"Karmelo's Mother","ANSWER"),
- ("IMG_0314",1.4,5.4,"Supporter · Collin County","ANSWER"),
- ("IMG_0327",1.6,11.2,"Supporter · Collin County","SON"),
- ("IMG_0318",2.0,22.0,"Supporter · Collin County","SON"),
- ("IMG_0319",7.4,20.8,"Father of a Black Son","DEF"),
- ("IMG_0317",24.0,30.1,"Traveled 1,000+ Miles","DEF"),
- ("IMG_0299",2.2,10.1,"Supporter · Collin County","DEF"),
- ("IMG_0299",20.6,26.1,"Supporter · Collin County","DEF"),
- ("IMG_0328",0.0,11.7,"Community Father · Frisco, TX","STK"),
- ("IMG_0328",18.1,28.0,"Community Father · Frisco, TX","STK"),
- ("IMG_0328",36.4,44.4,"Community Father · Frisco, TX","STK"),
- ("IMG_0328",52.0,63.5,"Community Father · Frisco, TX","STK"),
- ("signal_174923",5.2,30.5,"Supporter · Collin County","INS"),
- ("IMG_0298",3.9,10.4,"Supporter · Collin County","INS"),
- ("IMG_0316",0.0,9.6,"Supporter · Collin County","INS"),
+ ('IMG_0313',1.6,5.6,"Karmelo's Mother",'ANSWER'),
+ ('IMG_0314',1.4,5.4,'Supporter · Collin County','ANSWER'),
+ ('IMG_0327',1.6,9.6,'Supporter · Collin County','SON'),
+ ('IMG_0318',2.0,16.0,'Supporter · Collin County','SON'),
+ ('IMG_0319',7.4,20.8,'Father of a Black Son','DEF'),
+ ('IMG_0317',24.0,30.1,'Traveled 1,000+ Miles','DEF'),
+ ('IMG_0299',2.2,10.1,'Supporter · Collin County','DEF'),
+ ('IMG_0328',1.6,12.2,'Community Father · Frisco, TX','STK'),
+ ('IMG_0328',36.1,48.4,'Community Father · Frisco, TX','STK'),
+ ('signal_173843',4.3,15.0,'Trial Update · June 6','WIT'),
+ ('signal_173843',59.7,74.5,'Trial Update · June 6','WIT'),
+ ('signal_172300',15.2,22.2,'Trial Update · June 6','WIT'),
+ ('signal_172300',44.2,58.4,'Trial Update · June 6','WIT'),
+ ('signal_174923',5.2,22.0,'Supporter · Collin County','INS'),
+ ('IMG_0316',0.0,9.6,'Supporter · Collin County','INS'),
 ]
 HOT=set("karmelo son nephew murder self-defense defense strong god love loved protected brother free justice stay covered head care hear black support truth baby child innocent broken system red ours equal forever odds hands 100%".split())
-BEAT_HDR={"ANSWER":"WHY DO YOU SUPPORT KARMELO?","SON":'"HE\'S MY SON"',"DEF":"THIS WAS SELF-DEFENSE","STK":"THE ODDS WERE SET BEFORE HE WALKED IN","INS":"WHAT THEY SAW"}
+BEAT_HDR={"ANSWER":"WHY DO YOU SUPPORT KARMELO?","SON":'"HE\'S MY SON"',"DEF":"THIS WAS SELF-DEFENSE","STK":"THE ODDS WERE SET BEFORE HE WALKED IN","WIT":"THE WITNESS CHANGED HIS STORY","INS":"WHAT THEY SAW"}
 
 def norm(w): return re.sub(r'\b(carmel+a|carmell+a|carmel+o|camel+o|camil+l?a|carmil+l?a|graham\s*lowe)\b','Karmelo',w,flags=re.I)
 def clean(w): return w.strip().strip('.,?!').lower()
